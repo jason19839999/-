@@ -26,30 +26,30 @@ public class CrosFilter extends OncePerRequestFilter {
 		httpServletRequest.getRequestDispatcher("/NoAuthority").forward(httpServletRequest, httpServletResponse);
 
 
-		HttpServletResponse res = (HttpServletResponse) httpServletResponse;
+		//HttpServletResponse res = (HttpServletResponse) httpServletResponse;
 		
-		HttpServletRequest req = (HttpServletRequest) httpServletResponse;
+		//HttpServletRequest req = (HttpServletRequest) httpServletResponse;
 		
-		String origin = req.getHeader("Origin");
+		String origin = httpServletRequest.getHeader("Origin");
 		
 		if (!org.springframework.util.StringUtils.isEmpty(origin)) {
 			//带cookie的时候，origin必须是全匹配，不能使用*
-			res.addHeader("Access-Control-Allow-Origin", origin);			
+			httpServletResponse.addHeader("Access-Control-Allow-Origin", origin);
 		}
+
+		httpServletResponse.addHeader("Access-Control-Allow-Methods", "*");
 		
-		res.addHeader("Access-Control-Allow-Methods", "*");
-		
-		String headers = req.getHeader("Access-Control-Request-Headers");
+		String headers = httpServletRequest.getHeader("Access-Control-Request-Headers");
 		
 		// 支持所有自定义头
 		if (!org.springframework.util.StringUtils.isEmpty(headers)) {
-			res.addHeader("Access-Control-Allow-Headers", headers);			
+			httpServletResponse.addHeader("Access-Control-Allow-Headers", headers);
 		}
-		
-		res.addHeader("Access-Control-Max-Age", "3600");
+
+		httpServletResponse.addHeader("Access-Control-Max-Age", "3600");
 		
 		// enable cookie
-		res.addHeader("Access-Control-Allow-Credentials", "true");
+		httpServletResponse.addHeader("Access-Control-Allow-Credentials", "true");
 
 		filterChain.doFilter(httpServletRequest, httpServletResponse);
 	}
