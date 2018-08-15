@@ -26,6 +26,10 @@ public class CrosFilter implements Filter {
 			throws IOException, ServletException {
 		// TODO Auto-generated method stub
 
+		//过滤请求，在这里可以验证用户的合法性
+		request.getRequestDispatcher("/NoAuthority").forward(request, response);
+
+
 		HttpServletResponse res = (HttpServletResponse) response;
 		
 		HttpServletRequest req = (HttpServletRequest) request;
