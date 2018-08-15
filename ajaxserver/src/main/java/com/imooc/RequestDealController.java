@@ -11,7 +11,9 @@ public class RequestDealController {
 
     @RequestMapping(value = "/NoAuthority")
     public String NoAuthority() {
-        return "您没有权限访问";
+
+        String result = "您没有权限访问";
+        return result;
     }
 
 

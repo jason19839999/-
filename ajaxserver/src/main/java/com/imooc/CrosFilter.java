@@ -12,27 +12,23 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.tomcat.util.buf.StringUtils;
+import org.springframework.web.filter.OncePerRequestFilter;
 
-public class CrosFilter implements Filter {
+public class CrosFilter extends OncePerRequestFilter {
 
-	@Override
-	public void init(FilterConfig filterConfig) throws ServletException {
-		// TODO Auto-generated method stub
 
-	}
 
 	@Override
-	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
-			throws IOException, ServletException {
+	protected void doFilterInternal(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, FilterChain filterChain) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 
 		//过滤请求，在这里可以验证用户的合法性
-		request.getRequestDispatcher("/NoAuthority").forward(request, response);
+		httpServletRequest.getRequestDispatcher("/NoAuthority").forward(httpServletRequest, httpServletResponse);
 
 
-		HttpServletResponse res = (HttpServletResponse) response;
+		HttpServletResponse res = (HttpServletResponse) httpServletResponse;
 		
-		HttpServletRequest req = (HttpServletRequest) request;
+		HttpServletRequest req = (HttpServletRequest) httpServletResponse;
 		
 		String origin = req.getHeader("Origin");
 		
@@ -54,8 +50,8 @@ public class CrosFilter implements Filter {
 		
 		// enable cookie
 		res.addHeader("Access-Control-Allow-Credentials", "true");
-		
-		chain.doFilter(request, response);
+
+		filterChain.doFilter(httpServletRequest, httpServletResponse);
 	}
 
 	@Override
