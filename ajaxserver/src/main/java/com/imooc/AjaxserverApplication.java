@@ -1,5 +1,7 @@
 package com.imooc;
 
+import com.imooc.Filter.CrosFilter;
+import com.imooc.Filter.TokenFilter;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
@@ -18,13 +20,13 @@ public class AjaxserverApplication {
     }
 
     //拦截所有接口
-    @Bean
-    public FilterRegistrationBean registerFilter() {
-        FilterRegistrationBean bean = new FilterRegistrationBean();
-        bean.addUrlPatterns("/*");
-        bean.setFilter(new CrosFilter());
-        return bean;
-    }
+//    @Bean
+//    public FilterRegistrationBean registerFilter() {
+//        FilterRegistrationBean bean = new FilterRegistrationBean();
+//        bean.addUrlPatterns("/*");
+//        bean.setFilter(new CrosFilter());
+//        return bean;
+//    }
 
     //拦截指定的接口
     @Bean
@@ -33,6 +35,14 @@ public class AjaxserverApplication {
         String [] arras = {"/get1"};  //拦截/get1
         return filtersGen(filter, Arrays.asList(arras),null, "tokenFilter", 1);
     }
+
+    @Bean
+    public FilterRegistrationBean crosFilter(){
+        CrosFilter filter =  new CrosFilter();
+        String [] arras = {"/get1"};  //拦截/get1
+        return filtersGen(filter, Arrays.asList(arras),null, "tokenFilter", 1);
+    }
+
 
     private FilterRegistrationBean filtersGen(Filter filter, List<String> uris, Map<String,String> params, String name, int order){
         FilterRegistrationBean registration = new FilterRegistrationBean();
