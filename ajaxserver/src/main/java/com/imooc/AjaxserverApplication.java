@@ -30,7 +30,7 @@ public class AjaxserverApplication {
     @Bean
     public FilterRegistrationBean tokenFilter(){
         TokenFilter filter =  new TokenFilter();
-        String [] arras = {""};
+        String [] arras = {"/get1"};  //拦截/get1
         return filtersGen(filter, Arrays.asList(arras),null, "tokenFilter", 1);
     }
 
