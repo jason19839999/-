@@ -51,7 +51,7 @@ public class CrosFilter extends OncePerRequestFilter {
 		// enable cookie
 		httpServletResponse.addHeader("Access-Control-Allow-Credentials", "true");
 
-		filterChain.doFilter(httpServletRequest, httpServletResponse);
+		//filterChain.doFilter(httpServletRequest, httpServletResponse);
 	}
 
 	@Override
