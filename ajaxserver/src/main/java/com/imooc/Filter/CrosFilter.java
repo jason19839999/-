@@ -23,7 +23,7 @@ public class CrosFilter extends OncePerRequestFilter {
 		// TODO Auto-generated method stub
 
 		//过滤请求，在这里可以验证用户的合法性
-		httpServletRequest.getRequestDispatcher("/NoAuthority").forward(httpServletRequest, httpServletResponse);
+//		httpServletRequest.getRequestDispatcher("/NoAuthority").forward(httpServletRequest, httpServletResponse);
 
 
 		//HttpServletResponse res = (HttpServletResponse) httpServletResponse;
@@ -35,8 +35,11 @@ public class CrosFilter extends OncePerRequestFilter {
 		if (!org.springframework.util.StringUtils.isEmpty(origin)) {
 			//带cookie的时候，origin必须是全匹配，不能使用*
 			httpServletResponse.addHeader("Access-Control-Allow-Origin", origin);
+		}else{
+			//设置跨域第一步
+			httpServletResponse.addHeader("Access-Control-Allow-Origin", "*");
 		}
-
+        //设置跨域第二步
 		httpServletResponse.addHeader("Access-Control-Allow-Methods", "*");
 		
 		String headers = httpServletRequest.getHeader("Access-Control-Request-Headers");
@@ -51,7 +54,8 @@ public class CrosFilter extends OncePerRequestFilter {
 		// enable cookie
 		httpServletResponse.addHeader("Access-Control-Allow-Credentials", "true");
 
-		//filterChain.doFilter(httpServletRequest, httpServletResponse);
+		//跳转到需要跳转的地方
+		filterChain.doFilter(httpServletRequest, httpServletResponse);
 	}
 
 	@Override

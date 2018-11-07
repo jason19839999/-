@@ -32,7 +32,7 @@ public class AjaxserverApplication {
     @Bean
     public FilterRegistrationBean tokenFilter(){
         TokenFilter filter =  new TokenFilter();
-        String [] arras = {"/get1"};  //拦截/get1
+        String [] arras = {""};  //拦截/get1
         return filtersGen(filter, Arrays.asList(arras),null, "tokenFilter", 1);
     }
 
@@ -40,7 +40,7 @@ public class AjaxserverApplication {
     public FilterRegistrationBean crosFilter(){
         CrosFilter filter =  new CrosFilter();
         String [] arras = {"/get1"};  //拦截/get1
-        return filtersGen(filter, Arrays.asList(arras),null, "tokenFilter", 1);
+        return filtersGen(filter, Arrays.asList(arras),null, "crosFilter", 1);
     }
 
 
